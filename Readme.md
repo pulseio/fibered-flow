@@ -20,9 +20,7 @@ var contents = flow.map(['file1', 'file2', 'file3']).map({function(f){
 
 ## Iterators
 
-### Run in parallel
-
-#### map(fn)
+### map(fn) - Run in parallel
 
 Run a mapping function over all the items in an iterator, running each
 operation in parallel, and completing when all the function calls have
@@ -41,9 +39,7 @@ var results = flow.iterator(websites).map(function(site){
 }).values();
 ```
 
-### Get first result
-
-## first(fn, x = 1)
+### first(fn, x = 1) - get first result
 
 Run a mapping function over all the items in an iterator, but unlike
 map, the resulting collection will only contain the first 'first' items
@@ -56,9 +52,7 @@ var fastest = flow.iterator(['google.com', 'foo.com']).first(function(site){
 
 ```
 
-### Converting from iterator to array
-
-#### toA()
+#### toA() - Converting from iterator to array
 
 ```javascript
     

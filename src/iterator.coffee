@@ -25,8 +25,8 @@ module.exports = class Iterator
     @
 
   # Maps fn over values, but returns as soon as 'first' results are back
-  first: (fn, first = 1) ->
-    futures = (new Future() for f in [0...first])
+  first: (fn, x = 1) ->
+    futures = (new Future() for f in [0...x])
     fibers = []
 
     # Return results in the order they come back
@@ -41,9 +41,9 @@ module.exports = class Iterator
         fiber.run()
         fibers.push(fiber)
 
-    # Wait for 'first' results
+    # Wait for 'x' results
     results = 
-      for i in [0...first]
+      for i in [0...x]
         futures[i].wait()
 
     new Iterator(results)
