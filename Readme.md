@@ -2,7 +2,7 @@
 
 Provides parallel flow constructs for fiber based node.js code.
 
-### Quick Example
+## Quick Example
 
 ```javascript
 var flow = require('fibered-flow');
@@ -18,11 +18,11 @@ var contents = flow.map(['file1', 'file2', 'file3']).map({function(f){
 }).toA();
 ```
 
-### Iterators
+## Iterators
 
-## Run in parallel
+### Run in parallel
 
-# map(fn)
+#### map(fn)
 
 Run a mapping function over all the items in an iterator, running each
 operation in parallel, and completing when all the function calls have
@@ -41,9 +41,9 @@ var results = flow.iterator(websites).map(function(site){
 }).values();
 ```
 
-## Get first result
+### Get first result
 
-# first(fn, x = 1)
+## first(fn, x = 1)
 
 Run a mapping function over all the items in an iterator, but unlike
 map, the resulting collection will only contain the first 'first' items
@@ -56,9 +56,9 @@ var fastest = flow.iterator(['google.com', 'foo.com']).first(function(site){
 
 ```
 
-## Converting from iterator to array
+### Converting from iterator to array
 
-# toA()
+#### toA()
 
 ```javascript
     
