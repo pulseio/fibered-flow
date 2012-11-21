@@ -37,15 +37,26 @@ describe 'Iterator', ->
         @iterator.each (v) -> sleep(50)
       , 0.05
 
-  describe 'first', ->
-    it 'should only return first values', ->
-      @iterator.first(((v) -> v), 2).toA().should.eql([0,1])
+  describe 'quickestN', ->
+    it 'should only return quickest n values', ->
+      @iterator.quickestN(((v) -> v), 2).toA().should.eql([0,1])
 
-    it "should only take as long as fastest 'first' functions to return", ->      
+    it "should only take as long as fastest 'n' functions to return", ->      
       shouldRunInParallel =>
-        @iterator.first (v, i) ->
+        @iterator.quickestN (v, i) ->
           if i < 1
             sleep(50)
           else
             sleep(1000)
       , 0.05
+
+  describe 'quickest', ->
+    it 'should return the quickest value', ->
+      quickest = @iterator.quickest (v, i) =>
+        if i == @iterator.toA().length - 1
+          sleep(50)          
+        else
+          sleep(1000)
+        i
+          
+      quickest.should.eql @iterator.toA()[@iterator.toA().length - 1]

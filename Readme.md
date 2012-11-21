@@ -39,23 +39,35 @@ var results = flow.iterator(websites).map(function(site){
 }).values();
 ```
 
-### first(fn, x = 1) - get first result
+### quickest(fn) - get first result
 
 Run a mapping function over all the items in an iterator, but unlike
-map, the resulting collection will only contain the first 'first' items
+map, and return the quickest result to come back.
 
 ```javascript
-var fastest = flow.iterator(['google.com', 'foo.com']).first(function(site){
+var quickest = flow.iterator(['google.com', 'foo.com']).quickest(function(site){
     ping(site)
     return site;
 });
-
 ```
+
+### quickestN(fn, n = 1) - Like quickest, but instead gets the fastest n results
+
+```javascript
+var quickest = flow.iterator(['google.com', 'foo.com', 'hello.com'], 2).quickest(function(site){
+    ping(site)
+    return site;
+}).toA();
+```
+
+
 
 #### toA() - Converting from iterator to array
 
 ```javascript
     
-    flow.iterator(values).map(function(){//do something}).toA()[0];
+    flow.iterator(values).map(function(){
+        //do something
+    }).toA();
     
 ```

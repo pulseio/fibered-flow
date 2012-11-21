@@ -4,7 +4,7 @@ util = require 'util'
 module.exports = class Iterator
 
   constructor: (@values, @options = {}) ->
-    
+       
   futurize: (fn, args...) ->
     future = new Future()
     Fiber =>
@@ -25,8 +25,8 @@ module.exports = class Iterator
     @
 
   # Maps fn over values, but returns as soon as 'first' results are back
-  first: (fn, x = 1) ->
-    futures = (new Future() for f in [0...x])
+  quickestN: (fn, n = 1) ->
+    futures = (new Future() for f in [0...n])
     fibers = []
 
     # Return results in the order they come back
@@ -41,12 +41,15 @@ module.exports = class Iterator
         fiber.run()
         fibers.push(fiber)
 
-    # Wait for 'x' results
+    # Wait for 'n' results
     results = 
-      for i in [0...x]
+      for i in [0...n]
         futures[i].wait()
 
     new Iterator(results)
+
+  quickest: (fn) ->
+    @quickestN(fn, 1).toA()[0]
 
   toA: ->
     @values
