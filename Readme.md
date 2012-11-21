@@ -56,6 +56,6 @@ var fastest = flow.iterator(['google.com', 'foo.com']).first(function(site){
 
 ```javascript
     
-    flow.iterator(values).map(function(){//do something}).toA();
+    flow.iterator(values).map(function(){//do something}).toA()[0];
     
 ```
