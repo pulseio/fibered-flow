@@ -39,10 +39,10 @@ var results = flow.iterator(websites).map(function(site){
 }).values();
 ```
 
-### quickest(fn) - get first result
+### quickest(fn) - quick quickest result
 
 Run a mapping function over all the items in an iterator, but unlike
-map, and return the quickest result to come back.
+map, return the result of the first function to complete
 
 ```javascript
 var quickest = flow.iterator(['google.com', 'foo.com']).quickest(function(site){
