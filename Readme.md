@@ -20,13 +20,17 @@ var contents = flow.map(['file1', 'file2', 'file3']).map({function(f){
 
 ## Iterators
 
-### map(fn) - Run in parallel
+### map(fn, options = {}) - Run in parallel
 
 Run a mapping function over all the items in an iterator, running each
 operation in parallel, and completing when all the function calls have
 finished.  Each invocation of fn runs in its own fiber.  Note: If you
 call out to an async function, make sure you block the fiber either by
 yielding or waiting on a future.
+
+options
+-------
+* concurrency - limits number of concurrent operations
 
 ```javascript
 var http = require('fibered-http');

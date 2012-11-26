@@ -14,15 +14,19 @@ module.exports = class Iterator
 
   # Returns another iterator with the values that result in applying the mapping function.
   # Each application runs in its own fiber, i.e. everything runs in parallel.
-  map: (fn) ->
-    futures = (@futurize(fn, v, i) for v, i in @values)
-    new Iterator(f.wait() for f in futures)
-
-  # Like map, but returns original iterator
-  each: (fn) ->
-    futures = (@futurize(fn, v, i) for v, i in @values)
-    f.wait() for f in futures
-    @
+  map: (fn, options = {}) ->
+    results = []
+    futures = []
+    
+    for v, i in @values
+      
+      # Throttle by concurrency
+      if options.concurrency? and options.concurrency <= futures.length
+        results.push(futures.shift().wait())
+        
+      futures.push @futurize(fn, v, i)
+      
+    new Iterator(results.concat(f.wait() for f in futures))
 
   # Maps fn over values, but returns as soon as 'first' results are back
   quickestN: (fn, n = 1) ->
