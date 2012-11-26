@@ -28,8 +28,7 @@ finished.  Each invocation of fn runs in its own fiber.  Note: If you
 call out to an async function, make sure you block the fiber either by
 yielding or waiting on a future.
 
-options
--------
+#### options
 * concurrency - limits number of concurrent operations
 
 ```javascript
